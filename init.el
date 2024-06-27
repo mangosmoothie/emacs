@@ -76,8 +76,8 @@
   :after projectile
   :init
   (setq neo-theme 'nerd)
-  (setq-default neo-show-hidden-files t)
-  (neotree-))
+  (setq neo-hidden-regexp-list
+    '("\\.pyc$" "~$" "^#.*#$" "\\.elc$" "\\.o$" "__pycache__" ".git$" ".DS_Store")))
 
 (use-package general :ensure t
   :config
