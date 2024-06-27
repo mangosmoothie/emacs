@@ -14,6 +14,7 @@
 (setq column-number-mode t)
 (setq package-install-upgrade-built-in t)
 (tool-bar-mode -1)
+(scroll-bar-mode -1)
 
 (setq package-enable-at-startup nil) ; tells emacs not to load any packages before starting up
 ;; the following lines tell emacs where on the internet to look up
@@ -29,13 +30,13 @@
   (package-refresh-contents) ; updage packages archive
   (package-install 'use-package)) ; and install the most recent version of use-package
 
-(require 'use-package) ; guess what this one does too ?
-(setq evil-want-C-u-scroll t)
+(require 'use-package)
 (use-package evil
   :ensure t
   :init
   (setq evil-want-integration t) ;; This is optional since it's already set to t by default.
   (setq evil-want-keybinding nil)
+  (setq evil-want-C-u-scroll t)
   :config
   (evil-mode 1))
 (use-package evil-collection
@@ -53,13 +54,6 @@
   :ensure t
   :config
   (evil-escape-mode))
-(use-package general
-  :ensure t
-  :config
-  (general-auto-unbind-keys)
-  (general-define-key
-    "C-s" 'swiper
-    "M-x" 'counsel-M-x))
 (use-package magit :ensure t)
 (use-package avy
   :ensure t
@@ -76,14 +70,23 @@
   :hook (prog-mode text-mode markdown-mode) ;; add `smartparens-mode` to these hooks
   :init
   (require 'smartparens-config))
+(use-package projectile :ensure t)
+(use-package neotree
+  :ensure t
+  :after projectile
+  :init
+  (setq neo-theme 'nerd))
 
 (use-package general :ensure t
   :config
+  (general-auto-unbind-keys)
+  (general-define-key
+    "C-s" 'swiper
+    "M-x" 'counsel-M-x)
   (general-define-key
    :states '(normal visual insert emacs)
    :prefix "SPC"
    :non-normal-prefix "C-SPC"
-
     "b" '(:ignore t :which-key "buffers")
     "bb" 'ivy-switch-buffer
     "bd" 'kill-buffer
@@ -119,8 +122,12 @@
     "kb" 'sp-forward-barf-sexp
 
     "p"  '(:ignore t :which-key "project")
+    "pb" 'project-switch-to-buffer
+    "pc" 'project-compile
     "pf" '(counsel-git :which-key "find file in git dir")
+    "pp" 'project-switch-project
     "ps" 'counsel-git-grep   
+    "pt" 'neotree-projectile-action
 
     "q" '(:ignore t :which-key "quit")
     "qq" 'save-buffers-kill-terminal
@@ -160,7 +167,7 @@
  '(custom-enabled-themes '(deeper-blue))
  '(delete-selection-mode nil)
  '(package-selected-packages
-   '(sequential-yank highlight-escape-sequences counsel evil-escape evil-escape-mode evil which-key swiper general avy))
+   '(neotree sequential-yank highlight-escape-sequences counsel evil-escape evil-escape-mode evil which-key swiper general avy))
  '(warning-suppress-types '((transient))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
