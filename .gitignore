@@ -1,1 +1,8 @@
 backups/
+auto-save-list/
+elpa/
+transient/
+recentf
+projects
+projectile-bookmarks.eld
+.cache

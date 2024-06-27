@@ -75,7 +75,9 @@
   :ensure t
   :after projectile
   :init
-  (setq neo-theme 'nerd))
+  (setq neo-theme 'nerd)
+  (setq-default neo-show-hidden-files t)
+  (neotree-))
 
 (use-package general :ensure t
   :config
@@ -148,11 +150,10 @@
     "w/" 'split-window-horizontally
 
     "x" '(:ignore t :which-key "exec")
-    "?"   '(iterm-goto-filedir-or-home :which-key "iterm - goto dir")
     "xx" 'eval-last-sexp
 
     "/"   'counsel-rg
-    "TAB" '(switch-to-other-buffer :which-key "prev buffer")
+    "TAB" '(switch-to-prev-buffer :which-key "prev buffer")
     "SPC" 'counsel-M-x))
 
 (custom-set-variables
@@ -168,7 +169,7 @@
  '(delete-selection-mode nil)
  '(package-selected-packages
    '(neotree sequential-yank highlight-escape-sequences counsel evil-escape evil-escape-mode evil which-key swiper general avy))
- '(warning-suppress-types '((transient))))
+ '(warning-suppress-types '((use-package) (transient))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
